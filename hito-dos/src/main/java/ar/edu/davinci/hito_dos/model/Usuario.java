@@ -21,6 +21,9 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Puntaje> puntajes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PuntajeAlbum> puntajesAlbum = new ArrayList<>();
+
     public Usuario() {}
 
     public Usuario(String nombre, String email) {
@@ -64,13 +67,14 @@ public class Usuario {
         return puntaje;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", email='" + email + '\'' +
-                ", puntajes=" + puntajes +
-                '}';
+    public PuntajeAlbum puntuarAlbum(Album album, double valoracion) {
+        if (valoracion < 0 || valoracion > 5) {
+            throw new RuntimeException("La valoración debe estar entre 0 y 5.");
+        }
+        PuntajeAlbum puntaje = new PuntajeAlbum(this, album, valoracion);
+        this.puntajesAlbum.add(puntaje);
+        album.addPuntaje(puntaje);
+        return puntaje;
     }
+
 }

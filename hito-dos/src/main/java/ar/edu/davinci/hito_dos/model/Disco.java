@@ -32,6 +32,7 @@ public class Disco {
     @JoinColumn(name = "artista_id")
     private Artista artista;
 
+
     /*@OneToMany(mappedBy = "disco", cascade = CascadeType.ALL)
     private List<Puntaje> puntajes = new ArrayList<>();
 */

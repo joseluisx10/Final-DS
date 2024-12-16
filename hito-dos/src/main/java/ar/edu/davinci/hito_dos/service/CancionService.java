@@ -1,10 +1,7 @@
 package ar.edu.davinci.hito_dos.service;
 
 import ar.edu.davinci.hito_dos.model.*;
-import ar.edu.davinci.hito_dos.repository.ArtistaRepository;
-import ar.edu.davinci.hito_dos.repository.CancionRepository;
-import ar.edu.davinci.hito_dos.repository.PuntajeRepository;
-import ar.edu.davinci.hito_dos.repository.UsuarioRepository;
+import ar.edu.davinci.hito_dos.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +17,9 @@ public class CancionService {
     public ArtistaRepository artistaRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private AlbumRepository albumRepository;
 
     @Autowired
     private PuntajeRepository puntajeRepository;
@@ -73,5 +73,12 @@ public class CancionService {
         Cancion cancion = cancionRepository.findById(cancionId).get();
         Puntaje p = usuario.puntuarCancion(cancion, valoracion);
         puntajeRepository.save(p);
+    }
+
+    public void puntuarAlbum(Long usuarioId, Long albumId, double valoracion) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).get();
+        Album album = albumRepository.findById(albumId).get();
+        PuntajeAlbum pa = usuario.puntuarAlbum(album, valoracion);
+        puntajeRepository.save(pa);
     }
 }

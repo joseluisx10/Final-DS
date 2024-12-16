@@ -39,6 +39,17 @@ public class UsuarioController {
         }
     }
 
+    @PostMapping("/puntuar-album")
+    public ResponseEntity<String> puntuarAlbum(@RequestParam Long usuarioId, @RequestParam Long albumId, @RequestParam double valoracion) {
+        try {
+            // Llamar al servicio para registrar la puntuación
+            puntajeService.puntuarAlbum(usuarioId, albumId, valoracion);
+            return ResponseEntity.ok("Puntaje Album registrado exitosamente.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 
     @GetMapping("/{usuarioId}/canciones-similares")
     public ResponseEntity<List<Cancion>> obtenerCancionesSimilares(@PathVariable Long usuarioId) {
