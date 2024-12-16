@@ -20,5 +20,11 @@
 "letra": "dsfdsd",
 "genero": "CLASICA"
  }
+4) AGREGAR PUNTAJE A UNA CANCION
+  http://localhost:8080/usuarios/puntuar?usuarioId=1&cancionId=3&valoracion=6.5
+5) FILTRAR POR GENERO FAVORITO
+   http://localhost:8081/usuarios/1/canciones-similares
+
+
 
    
